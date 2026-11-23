@@ -1,0 +1,52 @@
+.error{
+    color: red;
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px;
+}
+
+main {
+    max-width: 760px;
+    margin: 24px auto;
+    padding: 0 16px;
+}
+
+form {
+    display: grid;
+    gap: 10px;
+    max-width: 480px;
+}
+
+input:not([type="checkbox"]),
+textarea {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 8px;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.entry-list {
+    display: grid;
+    gap: 16px;
+}
+
+.entry-card {
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    padding: 16px;
+}
+
+.entry-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
