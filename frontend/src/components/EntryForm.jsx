@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function EntryForm({ initialValue, submitLabel, submitting, onSubmit }) {
+function EntryForm({ initialValue, submitLabel, onSubmit }) {
   const [formData, setFormData] = useState({
     title: initialValue?.title || "",
     entryBody: initialValue?.entryBody || "",
@@ -54,7 +54,7 @@ function EntryForm({ initialValue, submitLabel, submitting, onSubmit }) {
         Public entry
       </label>
 
-      <button type="submit" disabled={submitting}>{submitLabel}</button>
+      <button type="submit">{submitLabel}</button>
     </form>
   );
 }

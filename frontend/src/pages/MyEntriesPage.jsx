@@ -6,43 +6,33 @@ import { deleteEntry, getMyEntries } from "../services/entryService";
 function MyEntriesPage() {
   const { user } = useAuth();
   const [entries, setEntries] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
 
   useEffect(() => {
-    getMyEntries()
-      .then(setEntries)
-      .catch((requestError) => {
-        setError(
-          requestError.response?.data?.message || "Unable to load entries.",
-        );
-      })
-      .finally(() => setLoading(false));
+    async function loadEntries() {
+      try {
+        const data = await getMyEntries();
+        setEntries(data);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    loadEntries();
   }, []);
 
   async function handleDelete(entryId) {
     try {
       await deleteEntry(entryId);
-      setEntries((currentEntries) =>
-        currentEntries.filter((entry) => entry._id !== entryId),
-      );
-      setError("");
-    } catch (requestError) {
-      setError(
-        requestError.response?.data?.message || "Unable to delete entry.",
-      );
+      setEntries(entries.filter((entry) => entry._id !== entryId));
+    } catch (error) {
+      console.error(error);
     }
   }
-
-  if (loading) return <main><p>Loading entries...</p></main>;
 
   return (
     <main>
       <h1>My Entries</h1>
-      {error && <p className="error">{error}</p>}
-      {(!error || entries.length > 0) && (
-        <EntryList entries={entries} user={user} onDelete={handleDelete} />
-      )}
+      <EntryList entries={entries} user={user} onDelete={handleDelete} />
     </main>
   );
 }
